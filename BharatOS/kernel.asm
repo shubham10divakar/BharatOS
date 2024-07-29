@@ -12,4 +12,4 @@ start:
 [bits 32]
 start32:
     call kernel_main
-hlt
+    hlt

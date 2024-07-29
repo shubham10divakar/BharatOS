@@ -1,0 +1,12 @@
+sudo apt-get install build-essential gcc gdb qemu
+
+nasm -f bin boot.asm -o boot.bin
+
+gcc -ffreestanding -c kernel.c -o kernel.o
+nasm -f elf kernel.asm -o kernel_asm.o
+ld -o kernel.bin -Ttext 0x1000 kernel_asm.o kernel.o --oformat binary
+
+cat boot.bin kernel.bin > os-image.bin
+
+qemu-system-x86_64 -fda os-image.bin
+
